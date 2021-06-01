@@ -4,6 +4,7 @@ os.system("pip install requests==2.25")
 
 os.system("pip install gevent")
 
+os.chdir('./headless-crawlingathome')
 os.system("git clone https://github.com/TheoCoombes/crawlingathome")
 os.system("pip install -r crawlingathome/requirements.txt")
 

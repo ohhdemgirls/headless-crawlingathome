@@ -199,7 +199,7 @@ while client.jobCount() > 0:
                 
                 if responses[i].status_code == 200 and  responses[i].headers['Content-Type'][:3]=="ima" and len(responses[i].content)>5000:
                       
-                    print(urls[i])
+                    #print(urls[i])
                     filetype = Path(urls[i]).suffix    #os.path.splitext(e["url"])[1]
                     #print(filetype)
     
@@ -256,8 +256,8 @@ while client.jobCount() > 0:
             print("Currently processed content lines: "+str(processed_contentlines))
     
             #clear_output()
-        print("last filtering")
-        print(len(urls))
+        #print("last filtering")
+        #print(len(urls))
         try:
           # Once the last line of content is filtered, send the last requests
           rs = (grequests.get(u, timeout=time_out) for u in urls)
@@ -272,8 +272,8 @@ while client.jobCount() > 0:
           if responses[i]==None:
             continue
           print(i)
-          print(responses[i].status_code)
-          print(responses[i].headers['Content-Type'][:3])
+          #print(responses[i].status_code)
+          #print(responses[i].headers['Content-Type'][:3])
           #print(len(responses[i].content))
           try:
             
@@ -298,7 +298,7 @@ while client.jobCount() > 0:
                   try:
                     output_filename= img_output_folder + str(CURRENT_SAMPLE_ID)+filetype
                     cairosvg.svg2png( url=urls[i], write_to=output_filename, output_height=600)
-                    #print("Saved: "+img_output_folder + str(CURRENT_SAMPLE_ID)+filetype)
+                    print("Saved: "+img_output_folder + str(CURRENT_SAMPLE_ID)+filetype)
                   except:
                     continue
                 else:

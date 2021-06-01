@@ -120,7 +120,7 @@ while client.jobCount() > 0:
         try:
           import cairosvg
         except:
-          continue
+          print("cannot load cairo")
         import pickle
     
         #print("Number of lines in the chunk: " + str(len(content)))

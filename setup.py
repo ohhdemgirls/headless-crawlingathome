@@ -1,8 +1,7 @@
 import os
 
-os.system("pip install requests==2.25")
-
 os.system("pip install gevent")
+os.system("pip install requests==2.25")
 
 os.chdir('./headless-crawlingathome')
 os.system("git clone https://github.com/TheoCoombes/crawlingathome")

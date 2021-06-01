@@ -5,7 +5,7 @@ client = cah.init(
     nickname= "rvencu"
 )
 
-import json, requests
+import json, requests, os
 from pathlib import Path
 
 def refreshToken(client_id, client_secret, refresh_token):

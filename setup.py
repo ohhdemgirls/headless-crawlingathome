@@ -3,6 +3,9 @@ import os
 os.system("pip install gevent")
 os.system("pip install requests==2.25")
 
+os.system("pip install tensorflow==2.4")
+os.system("pip install pandas")
+
 os.chdir('./headless-crawlingathome')
 os.system("git clone https://github.com/TheoCoombes/crawlingathome")
 os.system("pip install -r crawlingathome/requirements.txt")

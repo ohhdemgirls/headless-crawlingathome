@@ -5,8 +5,55 @@ client = cah.init(
     url="http://34.72.3.121/",
     nickname= YOUR_NICKNAME_FOR_THE_LEADERBOARD
 )
+
 import json, requests, os
 from pathlib import Path
+import multiprocessing
+import time
+import os
+from pathlib import Path
+
+import gc
+
+from zipfile import ZipFile
+import zipfile
+import zlib
+import pickle
+
+import grequests
+import json
+from collections import OrderedDict
+import cairosvg
+
+import spacy
+from spacy_langdetect import LanguageDetector
+import langid
+from IPython.display import clear_output 
+
+import pandas as pd
+
+import numpy as np
+from PIL import Image
+
+import sys
+import glob
+import torch.nn as nn
+
+import torch
+import clip
+
+import random
+import math
+import tensorflow as tf
+
+from tfr_image import TFRimage
+    
+from tfr_image.utils import (
+    get_filenames_and_classes,
+    write_label_file,
+    bytes_feature,
+    int64_feature,
+)
 
 def refreshToken(client_id, client_secret, refresh_token):
     params = {
@@ -76,25 +123,13 @@ while client.jobCount() > 0:
     shard_of_chunk = client.shard_piece  # should have values 0 - 1 ; says which 50% of a chunk will be processed
     
 
-    import multiprocessing
+    
     n_processes = multiprocessing.cpu_count() * 2
     
     similarity_threshold = 0.3
     
-    import time
-    start_time = time.time()
-    import os
-    from pathlib import Path
     
-    import gc
-    #import torch.nn as nn
-    #cos_sim = nn.CosineSimilarity(dim=1, eps=1e-6)
-    
-    from zipfile import ZipFile
-    import zipfile
-    import zlib
-    import pickle
-    
+    start_time = time.time() 
     
     content = []
     counter = 0
@@ -112,22 +147,10 @@ while client.jobCount() > 0:
     def worker(content,index_w, FIRST_SAMPLE_ID_IN_CHUNK, csv_output_folder,img_output_folder, n_processes):
     
         time_out=0.8
-        import grequests
-        import os
-        import time
-        import json
-        from collections import OrderedDict
-        import cairosvg
-        import pickle
+        
     
         #print("Number of lines in the chunk: " + str(len(content)))
-        from pathlib import Path
-    
-        import spacy
-        from spacy_langdetect import LanguageDetector
-        import langid
-        import time
-        from IPython.display import clear_output 
+        
     
         processed_contentlines= 0
         urls=[]
@@ -323,7 +346,7 @@ while client.jobCount() > 0:
             continue
     
     
-        import pandas as pd
+
         sample_ids= []
         sample_urls=[]
         sample_texts=[]
@@ -368,7 +391,6 @@ while client.jobCount() > 0:
     for p in jobs:
         p.join()
     
-    import gc
     for p in jobs:
         del p
     gc.collect()
@@ -382,21 +404,12 @@ while client.jobCount() > 0:
         print("Minimal batch_size is 2 ")
         return []
 
-      import numpy as np
-      from PIL import Image
-
-      import time
-
-      import os
       #print(os.getcwd())
       #os.chdir('./dm-haiku')
       #import haiku as hk
       #import torch
       #import clip
       #from PIL import Image
-
-
-
 
       #device = "cuda" if torch.cuda.is_available() else "cpu"
       #model, preprocess = clip.load("ViT-B/32", device=device)
@@ -472,21 +485,14 @@ while client.jobCount() > 0:
 
 
 
-    import sys
-    
-    
-    import glob
-    import pandas as pd
+
     
     #import psutil
     
     # Change the current working directory
     #os.chdir('/content/dm-haiku')
     #print(os.getcwd())
-    
-    from PIL import Image
-    import time
-    import numpy as np
+
     
     batch_size = 512 #2048
     
@@ -534,7 +540,6 @@ while client.jobCount() > 0:
     #model = Clip2Vec()
 
     #device = "cuda" if torch.cuda.is_available() else "cpu"
-    import torch.nn as nn
     cosine_similarity = nn.CosineSimilarity(dim=1, eps=1e-6)
     
     csv_file=output_folder + 'FIRST_SAMPLE_ID_IN_SHARD_'+str(FIRST_SAMPLE_ID_IN_SHARD)+"_LAST_SAMPLE_ID_IN_SHARD_"+str(LAST_SAMPLE_ID_IN_SHARD)+"_"+ str(shard_of_chunk)+'.csv'
@@ -553,13 +558,6 @@ while client.jobCount() > 0:
         img_ids_by_filepath[img_path] = path.stem
     
     #print(img_files_ids)
-
-    import torch
-    import clip
-    from PIL import Image
-
-
-
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model, preprocess = clip.load("ViT-B/32", device=device)
@@ -902,16 +900,6 @@ while client.jobCount() > 0:
     #!pip install tfr_image
     
     
-    from tfr_image import TFRimage
-    
-    from tfr_image.utils import (
-        get_filenames_and_classes,
-        write_label_file,
-        bytes_feature,
-        int64_feature,
-    )
-    
-    
     def _get_dataset_filename(
             dataset_dir, split_name, shard_id, tfrecord_filename, num_chards
         ):
@@ -1020,15 +1008,6 @@ while client.jobCount() > 0:
             sys.stdout.flush()
             return widths,heights, df
     
-    
-    import random
-    import math
-    #import os
-    import sys
-    from PIL import Image
-    import tensorflow as tf
-    
-    
     sampleIDs= []
     image_filenames=[]
     translations=[]
@@ -1066,8 +1045,6 @@ while client.jobCount() > 0:
     ''' 
 
     # Now we need to upload for Crawling@Home
-
-    from pathlib import Path
 
     saves = Path("./save")
 

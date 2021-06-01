@@ -117,7 +117,10 @@ while client.jobCount() > 0:
         import time
         import json
         from collections import OrderedDict
-        import cairosvg
+        try:
+          import cairosvg
+        except:
+          continue
         import pickle
     
         #print("Number of lines in the chunk: " + str(len(content)))

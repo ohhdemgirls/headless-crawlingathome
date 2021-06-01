@@ -10,6 +10,7 @@ This script runs crawlingathome from linux box. SVG images will most likely be l
 4. edit ```./headless-crawlingathome/test.py``` to edit your nickname on line 2
 5. run ```python ./headless-crawlingathome/test.py``` to contribute
 
-todo: test.py script still needs optimization
+### todo
+test.py script still needs optimization
 
 No more Google Colab kickouts...

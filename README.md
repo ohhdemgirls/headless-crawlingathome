@@ -1,6 +1,6 @@
 # headless-crawlingathome
 
-This script runs crawlingathome from linux box. Also tested with WSL 2 (no GPU)
+This script runs crawlingathome from linux box. Still having troubles with cairo, maybe will replace with another SVG processing library.
 
 ##How to use
 

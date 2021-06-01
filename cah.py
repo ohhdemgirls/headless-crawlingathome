@@ -23,7 +23,10 @@ import pickle
 import grequests
 import json
 from collections import OrderedDict
-import cairosvg
+try:
+    import cairosvg
+except:
+    continue
 
 import spacy
 from spacy_langdetect import LanguageDetector

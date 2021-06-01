@@ -10,4 +10,6 @@ This script runs crawlingathome from linux box. Still having troubles with cairo
 4. edit ```./headless-crawlingathome/cah.py``` to edit your nickname on line 2
 5. run ```python ./headless-crawlingathome/cah.py``` to contribute
 
+in cah.py I tried to load all libraries upfront to see any problem faster. test.py is closer to the original script from colab
+
 No more Google Colab kickouts...

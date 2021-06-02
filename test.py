@@ -77,7 +77,7 @@ while client.jobCount() > 0:
     
 
     import multiprocessing
-    n_processes = multiprocessing.cpu_count() * 2
+    n_processes = min(multiprocessing.cpu_count() * 2, 16)
     
     similarity_threshold = 0.3
     

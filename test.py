@@ -1,7 +1,7 @@
 import crawlingathome as cah
 
 client = cah.init(
-    url="http://34.72.3.121/",
+    url="http://crawlingathome.duckdns.org/",
     nickname= "rvencu"
 )
 

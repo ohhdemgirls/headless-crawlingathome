@@ -17,7 +17,8 @@ os.system("pip install IPython")
 
 os.system("pip install grequests")
 
-os.system("conda install --yes -c pytorch pytorch=1.7.1 torchvision cudatoolkit=11.0")
+os.system("pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
+")
 os.system("pip install ftfy regex tqdm")
 os.system("pip install git+https://github.com/openai/CLIP.git")
 

@@ -11,6 +11,8 @@ This script runs https://github.com/TheoCoombes/crawlingathome from linux box. S
 5. edit ```./headless-crawlingathome/test.py``` to edit your nickname on line 2
 6. run ```python ./headless-crawlingathome/test.py``` to contribute
 
+For deployment to 1vCPU, 1MB droplet, replace with ```./headless-crawlingathome/crawlfulltest.py``` at steps 5 and 6
+
 ## Upgrading procedure
 
 1. the safest way is to erase the local clone with commands like ```rm -R /path/to/working/dir```

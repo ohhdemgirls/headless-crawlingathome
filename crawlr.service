@@ -1,0 +1,13 @@
+[Unit]
+After=network.service
+Description=Crawling @ Home
+
+[Service]
+Type=simple
+WorkingDirectory=/home/crawl
+ExecStart=/home/crawl/crawl.sh
+# User=do-user
+
+[Install]
+WantedBy=multi-user.target
+# WantedBy=default.target

@@ -77,35 +77,15 @@ runcmd:
  - 'yes | sudo apt install vim'
  - 'yes | sudo apt-get install git'
  - cd /home/crawl
- - 'git clone "https://github.com/TheoCoombes/crawlingathome"'
- - pip install -r crawlingathome/requirements.txt
- - pip install grequests
- - pip install cairosvg
- - pip install spacy-langdetect
- - pip install langid
- - pip install tensorflow==2.4
- - pip install tfr_image
- - pip install pandas
- - pip install pillow
- - pip install numpy
- - pip install shutil
- - pip install torch==1.7.1+cpu torchvision==0.8.2+cpu torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
- - pip install ftfy
- - pip install regex
- - pip install tqdm
- - pip install git+https://github.com/openai/CLIP.git
- - wget https://raw.githubusercontent.com/rvencu/headless-crawlingathome/main/crawlfulltest.py
- - wget https://raw.githubusercontent.com/rvencu/headless-crawlingathome/main/modlimits.txt
- - wget https://raw.githubusercontent.com/rvencu/headless-crawlingathome/main/setlimits.txt
- - wget https://raw.githubusercontent.com/rvencu/headless-crawlingathome/main/crawl.sh
- - wget https://raw.githubusercontent.com/rvencu/headless-crawlingathome/main/crawl.service
- - cat modlimits.txt >> /etc/security/limits.conf
- - cat setlimits.txt >> /etc/pam.d/common-session
- - mv /home/crawl/crawl.service /etc/systemd/system/crawl.service
- - chmod 664 /etc/systemd/system/crawl.service
+ - 'git clone "https://github.com/rvencu/headless-crawlingathome"'
+ - python ./headless-crawlingathome/setup.py
+ - cat ./headless-crawlingathome/modlimits.txt >> /etc/security/limits.conf
+ - cat ./headless-crawlingathome/setlimits.txt >> /etc/pam.d/common-session
+ - mv /home/crawl/crawlr.service /etc/systemd/system/crawlr.service
+ - chmod 664 /etc/systemd/system/crawlr.service
  - systemctl daemon-reload
- - systemctl enable crawl.service
- - chmod 744 /home/crawl/crawl.sh
+ - systemctl enable crawlr.service
+ - chmod 744 /home/crawl/crawlr.sh
  - sed -i -e '/^\(#\|\)PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
  - sed -i -e '/^\(#\|\)PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
  - sed -i -e '/^\(#\|\)X11Forwarding/s/^.*$/X11Forwarding no/' /etc/ssh/sshd_config

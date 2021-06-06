@@ -112,6 +112,8 @@ while client.jobCount() > 0:
     def worker(content,index_w, FIRST_SAMPLE_ID_IN_CHUNK, csv_output_folder,img_output_folder, n_processes):
     
         time_out=0.8
+        from gevent import monkey
+        monkey.patch_all(select=False)
         import grequests
         import os
         import time
@@ -129,8 +131,6 @@ while client.jobCount() > 0:
         import spacy
         from spacy_langdetect import LanguageDetector
         import langid
-        import time
-        from IPython.display import clear_output 
     
         processed_contentlines= 0
         urls=[]
@@ -187,7 +187,7 @@ while client.jobCount() > 0:
                       continue
     
           if len(urls)>2000:
-            
+            print ("new batch of " + len(urls) + " urls...")
                 
             try:
               # Once the last line of content is filtered, send the last requests
@@ -547,8 +547,10 @@ while client.jobCount() > 0:
     
     
     df = pd.read_csv(csv_file, sep = '|',lineterminator='\n')
+    print("--------------------------------")
     print ("len(df) before filtering with clip"+str(len(df)))
-    
+    print("--------------------------------")
+
     img_files = glob.glob(img_output_folder + "*.*")
     img_files_ids ={}
     img_ids_by_filepath={} 
@@ -727,7 +729,7 @@ while client.jobCount() > 0:
             #!nvidia-smi
     
             if row_index % 100 ==0:
-                print("row_index: "+ str(row_index))
+                #print("row_index: "+ str(row_index))
                 client.log(f"Removing NFSW: {row_index} / ?")
 
             sample_id = df.at[row_index,'SAMPLE_ID']
@@ -745,11 +747,11 @@ while client.jobCount() > 0:
             #print("current_text_embedding")
             #print(current_text_embedding.shape)
             similarity= float (cosine_similarity(torch.reshape(current_text_embedding, (1, 512)) , current_image_embedding )) 
-            print(df.at[row_index,'TEXT'])
-            print(df.at[row_index,'URL'])
-            print("similarity:")
+            #print(df.at[row_index,'TEXT'])
+            #print(df.at[row_index,'URL'])
+            #print("similarity:")
 
-            print(similarity)
+            #print(similarity)
             if similarity > similarity_threshold:
                 df.at[row_index,'similarity'] = similarity
                 similarity_counter +=1
@@ -765,12 +767,12 @@ while client.jobCount() > 0:
                     similarity= float (cosine_similarity(torch.reshape(nsfw_text_features[i], (1, 512)) , current_image_embedding )) 
                     similarities.append( similarity )
         
-                print(similarities)
+                #print(similarities)
         
                 argmax1= argmax_index(similarities)
                 most_likely= nsfw_text_categories[argmax1]
-                print ("most_likely")
-                print (most_likely)
+                #print ("most_likely")
+                #print (most_likely)
         
         
                 nsfw_text_categories.pop(argmax_index(similarities))
@@ -811,21 +813,21 @@ while client.jobCount() > 0:
                         similarities.append( similarity )        
         
                     argmax1= argmax_index(similarities)
-                    print("argmax1")
-                    print(argmax1)
+                    #print("argmax1")
+                    #print(argmax1)
                     most_likely= underaged_categories[argmax1]
                     
-                    print ("most_likely")
+                    #print ("most_likely")
 
-                    print (most_likely)
+                    #print (most_likely)
         
                     underaged_categories.pop(argmax_index(similarities))
                     similarities.pop(argmax_index(similarities))
                     argmax2= argmax_index(similarities)
-                    print("argmax2")
-                    print(argmax2)
+                    #print("argmax2")
+                    #print(argmax2)
                     second_likely = underaged_categories[argmax_index(similarities)]
-                    print(second_likely)
+                    #print(second_likely)
                     if argmax1 <4 or argmax2 <4:
                         #print( df.at[row_index,'URL'] )
                         del image_embedding_dict[str(sample_id)]
@@ -849,9 +851,9 @@ while client.jobCount() > 0:
                         #similarities.append( cosine_similarity([animal_text_features[i][0]], [current_image_embedding[0][0]]) )
                         similarity= float (cosine_similarity(torch.reshape(animal_text_features[i], (1, 512)) , current_image_embedding )) 
                         similarities.append( similarity )       
-                    print ("most_likely")
+                    #print ("most_likely")
 
-                    print (most_likely)
+                    #print (most_likely)
         
                     argmax1= argmax_index(similarities)
                     most_likely= animal_categories[argmax1]

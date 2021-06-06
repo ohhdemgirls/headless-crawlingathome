@@ -74,18 +74,17 @@ runcmd:
  - sysctl vm.swappiness=75
  - 'echo "vm.swappiness=75" | tee -a /etc/sysctl.conf'
  - 'yes | sudo apt install python3-pip'
- - 'yes | sudo apt install vim'
  - 'yes | sudo apt-get install git'
  - cd /home/crawl
  - 'git clone "https://github.com/rvencu/headless-crawlingathome"'
- - python ./headless-crawlingathome/setup.py
+ - 'python3 ./headless-crawlingathome/setup.py'
  - cat ./headless-crawlingathome/modlimits.txt >> /etc/security/limits.conf
  - cat ./headless-crawlingathome/setlimits.txt >> /etc/pam.d/common-session
- - mv /home/crawl/crawlr.service /etc/systemd/system/crawlr.service
+ - mv /home/crawl/headless-crawlingathome/crawlr.service /etc/systemd/system/crawlr.service
  - chmod 664 /etc/systemd/system/crawlr.service
  - systemctl daemon-reload
  - systemctl enable crawlr.service
- - chmod 744 /home/crawl/crawlr.sh
+ - chmod 744 /home/crawl/headless-crawlingathome/crawlr.sh
  - sed -i -e '/^\(#\|\)PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
  - sed -i -e '/^\(#\|\)PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
  - sed -i -e '/^\(#\|\)X11Forwarding/s/^.*$/X11Forwarding no/' /etc/ssh/sshd_config

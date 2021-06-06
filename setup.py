@@ -13,7 +13,7 @@ os.system("pip install -r crawlingathome/requirements.txt")
 os.system("pip install spacy==2.3")
 os.system("python -m spacy download en_core_web_sm")
 
-os.system("pip install IPython")
+#os.system("pip install IPython")
 
 os.system("pip install grequests")
 

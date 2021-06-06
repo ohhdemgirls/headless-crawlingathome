@@ -5,7 +5,7 @@ Description=Crawling @ Home
 [Service]
 Type=simple
 WorkingDirectory=/home/crawl
-ExecStart=/home/crawl/crawlr.sh
+ExecStart=/home/crawl/headless-crawlingathome/crawlr.sh
 # User=do-user
 
 [Install]

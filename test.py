@@ -185,7 +185,7 @@ while client.jobCount() > 0:
                       continue
     
           if len(urls)>2000:
-            print ("new batch of " + len(urls) + " urls...")
+            print ("new batch of " + str(len(urls)) + " urls...")
                 
             try:
               # Once the last line of content is filtered, send the last requests

@@ -182,7 +182,7 @@ first = True
 
 while True:
 
-    #try:
+ try:
 
     if not first:
         client = cah.init(
@@ -197,6 +197,8 @@ while True:
         #with io.capture_output() as _:
 
         # don't print to console
+        os.system("ulimit -n 65356")
+
         os.system('mkdir ./save')
         os.system('rm ./save/*.*')    
 
@@ -675,7 +677,7 @@ while True:
         device = "cuda" if torch.cuda.is_available() else "cpu"
         model, preprocess = clip.load("ViT-B/32", device=device)
 
-        batch_size =16
+        batch_size =32
         img_emb_list= imgfiles_to_embeddings(img_files, batch_size, model, preprocess)
 
         #print("len(img_files)")
@@ -707,8 +709,9 @@ while True:
         for row_index, row in df.iterrows():
             untokenized_texts.append (str( df.at[row_index,'TEXT']) [:75])
             sample_ids_tokenized_texts.append (df.at[row_index,'SAMPLE_ID'])
-            if row_index% 128 ==0 and row_index >0:
-
+            if row_index% 64 ==0 and row_index >0:
+                print("currently tokenizing & embedding Texts from df row ")
+                print(row_index) 
 
                 tokenized_texts = clip.tokenize(untokenized_texts).to(device)
                 with torch.no_grad():
@@ -729,7 +732,8 @@ while True:
 
 
 
-        
+        print("text embeddings done")
+
         #texts_by_sample_id_dict[df.at[row_index,'SAMPLE_ID'] ] 
         #### NSFW detector categories text embeddings
         
@@ -1188,8 +1192,8 @@ while True:
 
     client.bye()
     exit()
-'''
-except Exception as e:
+
+ except Exception as e:
     from time import strftime, sleep
     import traceback
 
@@ -1199,8 +1203,7 @@ except Exception as e:
 
     print(f"crawling@home encountered an error ({e}) at {strftime('%H:%M:%S')}, restarting crawling@home...")
 
-
+    os.system("ulimit -n 65356")
     sleep(30)
 
     # now we will attempt to connect again
-'''

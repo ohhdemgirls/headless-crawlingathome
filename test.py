@@ -112,8 +112,6 @@ while client.jobCount() > 0:
     def worker(content,index_w, FIRST_SAMPLE_ID_IN_CHUNK, csv_output_folder,img_output_folder, n_processes):
     
         time_out=0.8
-        from gevent import monkey
-        monkey.patch_all(select=False)
         import grequests
         import os
         import time

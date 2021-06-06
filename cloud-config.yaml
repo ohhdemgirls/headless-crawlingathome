@@ -73,21 +73,39 @@ runcmd:
 #--------------------
  - sysctl vm.swappiness=75
  - 'echo "vm.swappiness=75" | tee -a /etc/sysctl.conf'
-#ulimit -n 65356 - needs a reliable and permanent solution
  - 'yes | sudo apt install python3-pip'
  - 'yes | sudo apt install vim'
  - 'yes | sudo apt-get install git'
  - cd /home/crawl
  - 'git clone "https://github.com/TheoCoombes/crawlingathome"'
  - pip install -r crawlingathome/requirements.txt
- - pip install grequests cairosvg spacy-langdetect langid tensorflow==2.4 tfr_image pandas pillow numpy
- - pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
+ - pip install grequests
+ - pip install cairosvg
+ - pip install spacy-langdetect
+ - pip install langid
+ - pip install tensorflow==2.4
+ - pip install tfr_image
+ - pip install pandas
+ - pip install pillow
+ - pip install numpy
+ - pip install shutil
+ - pip install torch==1.7.1 torchvision==0.8.2 torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
+ - pip install ftfy
+ - pip install regex
+ - pip install tqdm
  - pip install git+https://github.com/openai/CLIP.git
  - wget https://raw.githubusercontent.com/rvencu/headless-crawlingathome/main/crawlfulltest.py
  - wget https://raw.githubusercontent.com/rvencu/headless-crawlingathome/main/modlimits.txt
  - wget https://raw.githubusercontent.com/rvencu/headless-crawlingathome/main/setlimits.txt
- - cat /etc/security/limits.conf modlimits.txt > /etc/security/limits.conf
- - cat /etc/pam.d/common-session setlimits.txt > /etc/pam.d/common-session
+ - wget https://raw.githubusercontent.com/rvencu/headless-crawlingathome/main/crawl.sh
+ - wget https://raw.githubusercontent.com/rvencu/headless-crawlingathome/main/crawl.service
+ - cat modlimits.txt >> /etc/security/limits.conf
+ - cat setlimits.txt >> /etc/pam.d/common-session
+ - mv /home/crawl/crawl.service /etc/systemd/system/crawl.service
+ - chmod 664 /etc/systemd/system/crawl.service
+ - systemctl daemon-reload
+ - systemctl enable crawl.service
+ - chmod 744 /home/crawl/crawl.sh
  - sed -i -e '/^\(#\|\)PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
  - sed -i -e '/^\(#\|\)PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
  - sed -i -e '/^\(#\|\)X11Forwarding/s/^.*$/X11Forwarding no/' /etc/ssh/sshd_config

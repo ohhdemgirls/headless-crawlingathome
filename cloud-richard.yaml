@@ -61,7 +61,7 @@ runcmd:
 # Note: Don't write files to /tmp from cloud-init use /run/somedir instead.
 # Early boot environments can race systemd-tmpfiles-clean LP: #1707222.
 # - mkdir /run/mydir
- - fallocate -l 6G /swapfile
+ - fallocate -l 8G /swapfile
  - chmod 600 /swapfile
  - mkswap /swapfile
  - swapon /swapfile

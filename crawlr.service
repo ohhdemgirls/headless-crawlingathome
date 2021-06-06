@@ -6,7 +6,7 @@ Description=Crawling @ Home
 Type=simple
 WorkingDirectory=/home/crawl
 ExecStart=/home/crawl/headless-crawlingathome/crawlr.sh
-# User=do-user
+User=crawl
 
 [Install]
 WantedBy=multi-user.target

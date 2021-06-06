@@ -11,7 +11,7 @@ This script runs https://github.com/TheoCoombes/crawlingathome from linux box. S
 5. edit ```./headless-crawlingathome/test.py``` to edit your nickname on line 2
 6. run ```python ./headless-crawlingathome/test.py``` to contribute
 
-For deployment to 1vCPU, 1MB droplet, replace with ```./headless-crawlingathome/crawlfulltest.py``` at steps 5 and 6
+For deployment to 1vCPU, 1GB RAM droplet, replace with ```./headless-crawlingathome/crawlfulltest.py``` at steps 5 and 6. In addition to the above setup, the droplet should be configured with 5GB swap file to fit requirements for pytorch and CLIP
 
 ## Upgrading procedure
 

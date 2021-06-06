@@ -84,6 +84,10 @@ runcmd:
  - pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
  - pip install git+https://github.com/openai/CLIP.git
  - wget https://raw.githubusercontent.com/rvencu/headless-crawlingathome/main/crawlfulltest.py
+ - wget https://raw.githubusercontent.com/rvencu/headless-crawlingathome/main/modlimits.txt
+ - wget https://raw.githubusercontent.com/rvencu/headless-crawlingathome/main/setlimits.txt
+ - cat /etc/security/limits.conf modlimits.txt > /etc/security/limits.conf
+ - cat /etc/pam.d/common-session setlimits.txt > /etc/pam.d/common-session
  - sed -i -e '/^\(#\|\)PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
  - sed -i -e '/^\(#\|\)PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
  - sed -i -e '/^\(#\|\)X11Forwarding/s/^.*$/X11Forwarding no/' /etc/ssh/sshd_config
@@ -92,6 +96,7 @@ runcmd:
  - sed -i -e '/^\(#\|\)AllowAgentForwarding/s/^.*$/AllowAgentForwarding no/' /etc/ssh/sshd_config
  - sed -i -e '/^\(#\|\)AuthorizedKeysFile/s/^.*$/AuthorizedKeysFile .ssh\/authorized_keys/' /etc/ssh/sshd_config
  - sed -i '$a AllowUsers crawl' /etc/ssh/sshd_config
+ - reboot
 # final_message
 # default: cloud-init boot finished at $TIMESTAMP. Up $UPTIME seconds
 # this message is written by cloud-final when the system is finished

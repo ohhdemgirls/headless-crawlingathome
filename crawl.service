@@ -4,6 +4,7 @@ Description=Crawling @ Home
 
 [Service]
 Type=simple
+LimitNOFILE=65535
 WorkingDirectory=/home/crawl
 ExecStart=/home/crawl/crawl.sh
 User=crawl

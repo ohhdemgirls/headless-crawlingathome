@@ -4,11 +4,10 @@ Description=Crawling @ Home
 
 [Service]
 Type=simple
-LimitNOFILE=65535
+LimitNOFILE=2097152
 WorkingDirectory=/home/crawl
-ExecStart=/home/crawl/crawl1.sh
+ExecStart=/home/crawl/headless-crawlingathome/system/crawl.sh
 User=crawl
 
 [Install]
 WantedBy=multi-user.target
-# WantedBy=default.target

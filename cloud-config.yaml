@@ -37,12 +37,12 @@ runcmd:
  - cat ./headless-crawlingathome/system/modlimits.txt >> /etc/security/limits.conf
  - cat ./headless-crawlingathome/system/setlimits.txt >> /etc/pam.d/common-session
  - cat ./headless-crawlingathome/system/globallimits.txt >> /etc/sysctl.conf
- - mv /home/crawl/headless-crawlingathome/system/crawl2.service /etc/systemd/system/crawl.service
+ - mv /home/crawl/headless-crawlingathome/system/crawl.service /etc/systemd/system/crawl.service
  - chmod 664 /etc/systemd/system/crawl.service
  - systemctl daemon-reload
  - systemctl enable crawl.service
- - chmod 744 /home/crawl/headless-crawlingathome/system/crawl2.sh
- - chown crawl:admin /home/crawl/headless-crawlingathome/system/crawl2.sh
+ - chmod 744 /home/crawl/headless-crawlingathome/system/crawl.sh
+ - chown crawl:admin /home/crawl/headless-crawlingathome/system/crawl.sh
  - sed -i -e '/^\(#\|\)PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
  - sed -i -e '/^\(#\|\)PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
  - sed -i -e '/^\(#\|\)X11Forwarding/s/^.*$/X11Forwarding no/' /etc/ssh/sshd_config
@@ -51,7 +51,7 @@ runcmd:
  - sed -i -e '/^\(#\|\)AllowAgentForwarding/s/^.*$/AllowAgentForwarding no/' /etc/ssh/sshd_config
  - sed -i -e '/^\(#\|\)AuthorizedKeysFile/s/^.*$/AuthorizedKeysFile .ssh\/authorized_keys/' /etc/ssh/sshd_config
  - sed -i '$a AllowUsers crawl' /etc/ssh/sshd_config
- - sed -i 's/rvencu/yournick/' /home/crawl/headless-crawlingathome/crawltest1.py
+ - sed -i 's/rvencu/yournick/' /home/crawl/headless-crawlingathome/droplettest.py
  - sed -i 's/rvencu/yournick/' /home/crawl/headless-crawlingathome/test.py
  - reboot
 final_message: "The system is finally up, after $UPTIME seconds"

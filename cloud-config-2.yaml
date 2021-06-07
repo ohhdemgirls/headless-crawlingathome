@@ -95,8 +95,8 @@ runcmd:
  - sed -i -e '/^\(#\|\)AllowAgentForwarding/s/^.*$/AllowAgentForwarding no/' /etc/ssh/sshd_config
  - sed -i -e '/^\(#\|\)AuthorizedKeysFile/s/^.*$/AuthorizedKeysFile .ssh\/authorized_keys/' /etc/ssh/sshd_config
  - sed -i '$a AllowUsers crawl' /etc/ssh/sshd_config
- - sed -i -e 'YOUR_NICKNAME_FOR_THE_LEADERBOARD/s/^.*$/YOUR_NICKNAME_FOR_THE_LEADERBOARD = "rvencu" /#test/' /home/crawl/crawltest1.py
- - sed -i -e 'YOUR_NICKNAME_FOR_THE_LEADERBOARD/s/^.*$/YOUR_NICKNAME_FOR_THE_LEADERBOARD = "rvencu" /#test/' /home/crawl/test.py
+ - sed -i 's/rvencu/yournick/' /home/crawl/crawltest1.py
+ - sed -i 's/rvencu/yournick/' /home/crawl/test.py
  - reboot
 # final_message
 # default: cloud-init boot finished at $TIMESTAMP. Up $UPTIME seconds

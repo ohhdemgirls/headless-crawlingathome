@@ -1,10 +1,4 @@
 #cloud-config
-# Add users to the system. Users are added after groups are added.
-# Note: Most of these configuration options will not be honored if the user
-#       already exists. Following options are the exceptions and they are
-#       applicable on already-existing users:
-#       - 'plain_text_passwd', 'hashed_passwd', 'lock_passwd', 'sudo',
-#         'ssh_authorized_keys', 'ssh_redirect_user'.
 users:
   - default
   - name: crawl
@@ -14,63 +8,25 @@ users:
     shell: /bin/bash
     ssh_authorized_keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC0Ff0RcDRafX/VyxYJTeMWJrJGHIKvAvIG+nUmUR73iQFcwF7JP8FucLO0baVIPb029DI469SOZJWh6FTwt5T+IT5jm0UDAs2gwYClS+tRbohr27kXoILhlugFiCor4TD0mMhBTKme4RPLlcbLYaZq4r7Rep0rbWn46f3Gma2fDXgpy3v1JZBa30yHxQVO+s2UjbqPk9RcsWNQ7oap36yGrVb6Bc8ucwAM6pGTdJMQBZoTj0tgI/b9cSgKO1JRyUTt6HhuW+DDfrOuZPJLqOq0f5sNV0gD+89K9zNEtZeO+bpQuZvf+cwhb10XQc4t0Yd8EsyhxSbWbdvn6Utb9yQwmk7ThJkxLLLmDp5LtClOvp6PTFUooDjj3DgFfD8ZBK+sckwu1TPAKa8Y8jU+q4GfF5abAej5rXObVjVcKHsziBSsSG6yViVtoFAvqh0dYfM/Ujz7dj6KtfRs67J5X+8CJvvKokRZcjMs6neJNHoRll5t6K/uhQgKHvBRpFqL9kGS4hTEdJog47w9o8qmLTMYQ340ckEZkRh/c1lWu51wNycLW1iab40D2F/ymMihGxMo9AqHKoqE/cnh9SaZr1EGr7s4BhBnAvyOwHh2+sW5ndOenDOZ1wGbYbwVJznSG8I1tdlJzEjf2GuW1HZtxE/95yW0zlEQkue8mBfNUL+Q6Q==
-# This is an example file to automatically configure resolv.conf when the
-# instance boots for the first time.
-#
-# Ensure that your yaml is valid and pass this as user-data when starting
-# the instance. Also be sure that your cloud.cfg file includes this
-# configuration module in the appropriate section.
-#
 manage_resolv_conf: true
 resolv_conf:
   nameservers: ['1.1.1.1', '1.0.0.1']
   options:
     rotate: true
     timeout: 1
-# Update apt database on first boot (run 'apt-get update').
-# Note, if packages are given, or package_upgrade is true, then
-# update will be done independent of this setting.
-#
-# Default: false
-# Aliases: apt_update
 package_update: true
-# Upgrade the instance on first boot
-# (ie run apt-get upgrade)
-#
-# Default: false
-# Aliases: apt_upgrade
 package_upgrade: true
-# run commands
-# default: none
-# runcmd contains a list of either lists or a string
-# each item will be executed in order at rc.local like level with
-# output to the console
-# - runcmd only runs during the first boot
-# - if the item is a list, the items will be properly executed as if
-#   passed to execve(3) (with the first arg as the command).
-# - if the item is a string, it will be simply written to the file and
-#   will be interpreted by 'sh'
-#
-# Note, that the list has to be proper yaml, so you have to quote
-# any characters yaml would eat (':' can be problematic)
 runcmd:
  - [ ls, -l, / ]
  - [ sh, -xc, "echo $(date) ': hello crawl!'" ]
  - [ sh, -c, echo "=========hello crawl'=========" ]
  - ls -l /root
-# Note: Don't write files to /tmp from cloud-init use /run/somedir instead.
-# Early boot environments can race systemd-tmpfiles-clean LP: #1707222.
-# - mkdir /run/mydir
  - fallocate -l 8G /swapfile
  - chmod 600 /swapfile
  - mkswap /swapfile
  - swapon /swapfile
  - cp /etc/fstab /etc/fstab.bak
  - 'echo "/swapfile none swap sw 0 0" | tee -a /etc/fstab'
-#-- OPTIONAL BELOW --
-#vm.swappiness configures how often your system swaps data out of RAM to the swap space.
-#values closer to 100 try to move more data to the swap to preserve RAM
-#--------------------
  - sysctl vm.swappiness=75
  - 'echo "vm.swappiness=75" | tee -a /etc/sysctl.conf'
  - 'yes | sudo apt install python3-pip'
@@ -115,8 +71,4 @@ runcmd:
  - sed -i '$a AllowUsers crawl' /etc/ssh/sshd_config
  - sed -i 's/rvencu/yournick/' /home/crawl/crawltest1.py
  - reboot
-# final_message
-# default: cloud-init boot finished at $TIMESTAMP. Up $UPTIME seconds
-# this message is written by cloud-final when the system is finished
-# its first boot
 final_message: "The system is finally up, after $UPTIME seconds"

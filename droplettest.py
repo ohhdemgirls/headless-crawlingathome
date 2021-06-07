@@ -1,5 +1,6 @@
 YOUR_NICKNAME_FOR_THE_LEADERBOARD = "rvencu" #@param {type:"string"}
 CRAWLINGATHOME_SERVER_URL = "http://crawlingathome.duckdns.org/"
+
 import os
 #from IPython.utils import io
 #from IPython.display import clear_output
@@ -115,7 +116,7 @@ def imgfiles_to_embeddings(list_of_files, batch_size, model, preprocess):
               for img_path in list_of_files:
 
                 try:
-                  new_image_array = preprocess(Image.open(img_path)).unsqueeze(0).to(device)
+                  new_image_array = preprocess(Image.open(img_path).convert("RGB") ).unsqueeze(0).to(device)
                 except:
                   new_image_array = preprocess(Image.new("RGB", (300, 300), (255, 255, 255))).unsqueeze(0).to(device)
 
@@ -452,7 +453,7 @@ while True:
                             handler.write(img_data)
                         if os.path.getsize(img_output_folder + str(CURRENT_SAMPLE_ID)+filetype) >300000:
                           print("resizing img")
-                          img = Image.open(img_output_folder + str(CURRENT_SAMPLE_ID)+filetype) 
+                          img = Image.open(img_output_folder + str(CURRENT_SAMPLE_ID)+filetype).convert("RGB")  
                           basewidth = 1280
                           
                           wpercent = (basewidth/float(img.size[0]))
@@ -1089,7 +1090,7 @@ while True:
                             try:
                                 image_data = tf.io.gfile.GFile(filenames[i], "rb").read()
                                 with tf.io.gfile.GFile(filenames[i], "rb") as f:
-                                    image = Image.open(f)
+                                    image = Image.open(f).convert("RGB") 
                             except:
                                 df = df.drop(i)
                                 continue

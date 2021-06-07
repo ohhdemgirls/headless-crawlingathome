@@ -77,7 +77,7 @@ runcmd:
  - 'yes | sudo apt-get install git'
  - cd /home/crawl
  - 'git clone "https://github.com/rvencu/headless-crawlingathome"'
- - 'python3 ./headless-crawlingathome/setup.py'
+ - 'python3 ./headless-crawlingathome/setup-droplet.py'
  - cat ./headless-crawlingathome/modlimits.txt >> /etc/security/limits.conf
  - cat ./headless-crawlingathome/setlimits.txt >> /etc/pam.d/common-session
  - cat ./headless-crawlingathome/globallimits.txt >> /etc/sysctl.conf

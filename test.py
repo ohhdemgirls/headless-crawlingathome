@@ -1,8 +1,11 @@
+YOUR_NICKNAME_FOR_THE_LEADERBOARD = "rvencu" #@param {type:"string"}
+CRAWLINGATHOME_SERVER_URL = "http://crawlingathome.duckdns.org/"
+
 import crawlingathome as cah
 
 client = cah.init(
-    url="http://crawlingathome.duckdns.org/",
-    nickname= "rvencu"
+    url=CRAWLINGATHOME_SERVER_URL,
+    nickname= YOUR_NICKNAME_FOR_THE_LEADERBOARD
 )
 
 import json, requests, os

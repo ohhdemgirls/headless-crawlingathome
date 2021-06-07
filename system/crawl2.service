@@ -6,7 +6,7 @@ Description=Crawling @ Home
 Type=simple
 LimitNOFILE=65535
 WorkingDirectory=/home/crawl
-ExecStart=/home/crawl/crawl.sh
+ExecStart=/home/crawl/headless-crawlingathome/crawl2.sh
 User=crawl
 
 [Install]

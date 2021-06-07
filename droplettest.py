@@ -193,7 +193,7 @@ while True:
         #with io.capture_output() as _:
 
         # don't print to console
-        os.system("ulimit -n 65356")
+        os.system("ulimit -n 120000")
 
         os.system('mkdir ./save')
         os.system('rm ./save/*.*')    
@@ -452,7 +452,7 @@ while True:
                         with open(img_output_folder + str(CURRENT_SAMPLE_ID)+filetype, 'wb') as handler:
                             handler.write(img_data)
                         if os.path.getsize(img_output_folder + str(CURRENT_SAMPLE_ID)+filetype) >300000:
-                          print("resizing img")
+                          #print("resizing img")
                           img = Image.open(img_output_folder + str(CURRENT_SAMPLE_ID)+filetype).convert("RGB")  
                           basewidth = 1280
                           
@@ -706,8 +706,8 @@ while True:
             untokenized_texts.append (str( df.at[row_index,'TEXT']) [:75])
             sample_ids_tokenized_texts.append (df.at[row_index,'SAMPLE_ID'])
             if row_index% 64 ==0 and row_index >0:
-                print("currently tokenizing & embedding Texts from df row ")
-                print(row_index) 
+                #print("currently tokenizing & embedding Texts from df row ")
+                #print(row_index) 
 
                 tokenized_texts = clip.tokenize(untokenized_texts).to(device)
                 with torch.no_grad():
@@ -831,8 +831,8 @@ while True:
             #if similarity_counter>500 and similarity_counter%10==0:
                 #!nvidia-smi
         
-                if row_index % 1000 ==0:
-                    client.log(f"Removing NFSW: {row_index} / ?")
+                #if row_index % 1000 ==0:
+                    #client.log(f"Removing NFSW: {row_index} / ?")
 
                 sample_id = df.at[row_index,'SAMPLE_ID']
                 index_of_row_in_list= sample_ids_tokenized_texts.index(sample_id)
@@ -893,8 +893,8 @@ while True:
                         #keyword check
                         if str(df.at[row_index,'TEXT']).lower().find("teen") !=-1 or str(df.at[row_index,'TEXT']).lower().find("kid") !=-1  or  str(df.at[row_index,'TEXT']).lower().find("child") !=-1 or str(df.at[row_index,'TEXT']).lower().find("baby") !=-1 :
                             df = df.drop(row_index)
-                            print(###########NSFW KEYWORD DROP##############)
-                            print (df.at[row_index,'TEXT']))
+                            #print(###########NSFW KEYWORD DROP##############)
+                            #print (df.at[row_index,'TEXT']))
                             continue
                         
                         #first 4 are underaged, 0-3
@@ -1199,7 +1199,7 @@ while True:
 
     print(f"crawling@home encountered an error ({e}) at {strftime('%H:%M:%S')}, restarting crawling@home...")
 
-    os.system("ulimit -n 65356")
+    os.system("ulimit -n 120000")
     sleep(30)
 
     # now we will attempt to connect again

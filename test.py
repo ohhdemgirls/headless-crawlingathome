@@ -1,4 +1,4 @@
-YOUR_NICKNAME_FOR_THE_LEADERBOARD = "rvencu" #@param {type:"string"}
+YOUR_NICKNAME_FOR_THE_LEADERBOARD = "Archivist" #@param {type:"string"}
 CRAWLINGATHOME_SERVER_URL = "http://crawlingathome.duckdns.org/"
 
 import crawlingathome as cah

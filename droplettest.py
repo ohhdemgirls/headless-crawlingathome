@@ -26,6 +26,20 @@ def refreshToken(client_id, client_secret, refresh_token):
     else:
         return None
 
+from contextlib import contextmanager
+import sys, os
+
+@contextmanager
+def suppress_stdout():
+    with open(os.devnull, "w") as devnull:
+        old_stdout = sys.stdout
+        sys.stdout = devnull
+        try:  
+            yield
+        finally:
+            sys.stdout = old_stdout
+
+
 
 def uploadGdrive(output_filename):
     #output_filename = Path(output_filename).name
@@ -330,10 +344,13 @@ while True:
                 
                     
                 try:
-                  # Once the last line of content is filtered, send the last requests
-                  rs = (grequests.get(u, timeout=time_out) for u in urls)
-        
-                  responses = grequests.map(rs)
+                  with suppress_stdout():
+                    # Once the last line of content is filtered, send the last requests
+                    rs = (grequests.get(u, timeout=time_out) for u in urls)
+
+                    os.system("ulimit -n 120000")
+                    responses = grequests.map(rs)
+                    sleep(0.8)
                 except:
                   continue
         
@@ -402,10 +419,13 @@ while True:
             #print("last filtering")
             #print(len(urls))
             try:
-              # Once the last line of content is filtered, send the last requests
-              rs = (grequests.get(u, timeout=time_out) for u in urls)
-        
-              responses = grequests.map(rs)
+              with suppress_stdout():
+                # Once the last line of content is filtered, send the last requests
+                rs = (grequests.get(u, timeout=time_out) for u in urls)
+          
+                os.system("ulimit -n 120000")
+                responses = grequests.map(rs)
+                sleep(0.8)
             except:
               responses=[]
             
@@ -674,7 +694,8 @@ while True:
         model, preprocess = clip.load("ViT-B/32", device=device)
 
         batch_size =32
-        img_emb_list= imgfiles_to_embeddings(img_files, batch_size, model, preprocess)
+        with suppress_stdout():
+          img_emb_list= imgfiles_to_embeddings(img_files, batch_size, model, preprocess)
 
         #print("len(img_files)")
         #print(len(img_files))
@@ -702,29 +723,30 @@ while True:
         sample_ids_tokenized_texts=[]
 
         text_embedding_list = []
-        for row_index, row in df.iterrows():
-            untokenized_texts.append (str( df.at[row_index,'TEXT']) [:75])
-            sample_ids_tokenized_texts.append (df.at[row_index,'SAMPLE_ID'])
-            if row_index% 64 ==0 and row_index >0:
-                #print("currently tokenizing & embedding Texts from df row ")
-                #print(row_index) 
+        with suppress_stdout():
+          for row_index, row in df.iterrows():
+              untokenized_texts.append (str( df.at[row_index,'TEXT']) [:75])
+              sample_ids_tokenized_texts.append (df.at[row_index,'SAMPLE_ID'])
+              if row_index% 64 ==0 and row_index >0:
+                  #print("currently tokenizing & embedding Texts from df row ")
+                  #print(row_index) 
 
-                tokenized_texts = clip.tokenize(untokenized_texts).to(device)
-                with torch.no_grad():
-                  text_embeddings = model.encode_text(tokenized_texts)
-                for i in range(text_embeddings.shape[0]):
-                  text_embedding_list.append(text_embeddings[i])
+                  tokenized_texts = clip.tokenize(untokenized_texts).to(device)
+                  with torch.no_grad():
+                    text_embeddings = model.encode_text(tokenized_texts)
+                  for i in range(text_embeddings.shape[0]):
+                    text_embedding_list.append(text_embeddings[i])
 
-                untokenized_texts=[]
+                  untokenized_texts=[]
 
-        if len(untokenized_texts)>0:      
-            tokenized_texts = clip.tokenize(untokenized_texts).to(device)
+          if len(untokenized_texts)>0:      
+              tokenized_texts = clip.tokenize(untokenized_texts).to(device)
 
-            with torch.no_grad():
-              text_embeddings = model.encode_text(tokenized_texts)
-            for i in range(text_embeddings.shape[0]):
-              text_embedding_list.append(text_embeddings[i])
-            untokenized_texts=[]
+              with torch.no_grad():
+                text_embeddings = model.encode_text(tokenized_texts)
+              for i in range(text_embeddings.shape[0]):
+                text_embedding_list.append(text_embeddings[i])
+              untokenized_texts=[]
 
 
 

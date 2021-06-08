@@ -44,7 +44,7 @@ print("Current working directory: {0}".format(os.getcwd()))
 # Change the current working directory
 os.chdir('./python-ftfy')
 
-os.system("python ./setup.py install")
+os.system("python3 ./setup.py install")
 import ftfy
 ftfy.fix_text('âœ” No problems')
 
